@@ -3,9 +3,8 @@ title: "Exercise Prediction from Acceleration Data"
 author: "SP"
 date: "June 8, 2019"
 output:
-  html_document: default
-  pdf_document: default
-  word_document: default
+  html_document:
+    keep_md: true
 subtitle: Practical Machine Learning Course Project
 ---
 

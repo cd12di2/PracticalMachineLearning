@@ -5,7 +5,6 @@ date: "June 8, 2019"
 output:
   html_document:
     keep_md: true
-keep_md: true
 subtitle: Practical Machine Learning Course Project
 ---
 
@@ -161,33 +160,33 @@ set.
 ##           Reference
 ## Prediction    A    B    C    D    E
 ##          A 1367    0    0    0    0
-##          B    0  928    2    0    0
-##          C    0    1  836    6    0
-##          D    0    0    0  780    2
-##          E    0    0    0    0  880
+##          B    0  929    4    0    0
+##          C    0    0  834    6    0
+##          D    0    0    0  779    1
+##          E    0    0    0    1  881
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.9977          
-##                  95% CI : (0.9959, 0.9989)
+##                Accuracy : 0.9975          
+##                  95% CI : (0.9956, 0.9987)
 ##     No Information Rate : 0.2847          
 ##     P-Value [Acc > NIR] : < 2.2e-16       
 ##                                           
-##                   Kappa : 0.9971          
+##                   Kappa : 0.9968          
 ##                                           
 ##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            1.0000   0.9989   0.9976   0.9924   0.9977
-## Specificity            1.0000   0.9995   0.9982   0.9995   1.0000
-## Pos Pred Value         1.0000   0.9978   0.9917   0.9974   1.0000
-## Neg Pred Value         1.0000   0.9997   0.9995   0.9985   0.9995
+## Sensitivity            1.0000   1.0000   0.9952   0.9911   0.9989
+## Specificity            1.0000   0.9990   0.9985   0.9998   0.9997
+## Pos Pred Value         1.0000   0.9957   0.9929   0.9987   0.9989
+## Neg Pred Value         1.0000   1.0000   0.9990   0.9983   0.9997
 ## Prevalence             0.2847   0.1935   0.1745   0.1637   0.1837
-## Detection Rate         0.2847   0.1933   0.1741   0.1624   0.1833
-## Detection Prevalence   0.2847   0.1937   0.1756   0.1628   0.1833
-## Balanced Accuracy      1.0000   0.9992   0.9979   0.9959   0.9989
+## Detection Rate         0.2847   0.1935   0.1737   0.1622   0.1835
+## Detection Prevalence   0.2847   0.1943   0.1749   0.1624   0.1837
+## Balanced Accuracy      1.0000   0.9995   0.9969   0.9954   0.9993
 ```
 
 Results for testing the fit2 model (data sets 2) to the validation set are shown below.  The model also performs 
@@ -210,34 +209,34 @@ generality in the model, the model fit1 is likely over fit.
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1367    0    0    0    0
+##          A 1366    0    0    0    0
 ##          B    0  929    0    0    0
 ##          C    0    0  838    0    0
 ##          D    0    0    0  786    1
-##          E    0    0    0    0  881
+##          E    1    0    0    0  881
 ## 
 ## Overall Statistics
-##                                      
-##                Accuracy : 0.9998     
-##                  95% CI : (0.9988, 1)
-##     No Information Rate : 0.2847     
-##     P-Value [Acc > NIR] : < 2.2e-16  
-##                                      
-##                   Kappa : 0.9997     
-##                                      
-##  Mcnemar's Test P-Value : NA         
+##                                           
+##                Accuracy : 0.9996          
+##                  95% CI : (0.9985, 0.9999)
+##     No Information Rate : 0.2847          
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.9995          
+##                                           
+##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            1.0000   1.0000   1.0000   1.0000   0.9989
-## Specificity            1.0000   1.0000   1.0000   0.9998   1.0000
-## Pos Pred Value         1.0000   1.0000   1.0000   0.9987   1.0000
-## Neg Pred Value         1.0000   1.0000   1.0000   1.0000   0.9997
+## Sensitivity            0.9993   1.0000   1.0000   1.0000   0.9989
+## Specificity            1.0000   1.0000   1.0000   0.9998   0.9997
+## Pos Pred Value         1.0000   1.0000   1.0000   0.9987   0.9989
+## Neg Pred Value         0.9997   1.0000   1.0000   1.0000   0.9997
 ## Prevalence             0.2847   0.1935   0.1745   0.1637   0.1837
-## Detection Rate         0.2847   0.1935   0.1745   0.1637   0.1835
-## Detection Prevalence   0.2847   0.1935   0.1745   0.1639   0.1835
-## Balanced Accuracy      1.0000   1.0000   1.0000   0.9999   0.9994
+## Detection Rate         0.2845   0.1935   0.1745   0.1637   0.1835
+## Detection Prevalence   0.2845   0.1935   0.1745   0.1639   0.1837
+## Balanced Accuracy      0.9996   1.0000   1.0000   0.9999   0.9993
 ```
 
 A graph of error vs. number of trees is shown below for fit2.  The graph shows that the predicted fit is very 
@@ -327,3 +326,5 @@ Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. Qualitative Activ
   International Conference in Cooperation with SIGCHI (Augmented Human '13) . Stuttgart, Germany: ACM SIGCHI, 2013. 
 
 "Tree-Based Models", https://www.statmethods.net/advstats/cart.html, Last accessed 6/10/2019
+
+
