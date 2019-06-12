@@ -1,0 +1,206 @@
+---
+title: "Exercise Prediction from Acceleration Data"
+author: "SP"
+date: "June 8, 2019"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+subtitle: Practical Machine Learning Course Project
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<style type="text/css">
+
+body{ /* Normal  */
+      font-size: 11px;
+  }
+td {  /* Table  */
+  font-size: 10px;
+}
+h1.title {
+  font-size: 22px;
+  /*color: DarkBlue;*/
+}
+h1 { /* Header 1 */
+  font-size: 18px;
+  /*color: DarkBlue;*/
+}
+h2 { /* Header 2 */
+  font-size: 14px;
+  /*color: DarkBlue;*/
+}
+h3 { /* Header 3 */
+  font-size: 12px;
+  /*color: DarkBlue;*/
+}
+code.r{ /* Code block */
+    font-size: 11px;
+}
+pre { /* Code block - determines code spacing between lines */
+    font-size: 11px;
+}
+</style>
+
+```{r, message=F, warning=F, echo=F}
+  # Load necessary libraries
+  library(knitr)
+  library(caret)
+  library(kernlab)
+  library(randomForest) 
+```
+
+
+#### Introduction
+
+Using data from the Human Activity Recognition dataset (reference 2), proper and improper form for completing dumbbell curls 
+is "learned" using a Random Forest algorithm and the fit models are used to predict dumbbell performance given a test set.  
+
+The type of forms captured in the activity dataset are:
+
+A - According to specification  
+B - Throwing elbows to front  
+C - Raising only halfway  
+D - Lowering only halfway  
+E - Throwing hips to front  
+
+In an attempt to explore over/under fitting, the random forest algorithm is used to fit two models:  One model uses a relatively 
+full set of input data from the Human Activity Recognition dataset, whereas a second model uses the minimum optimum inputs needed 
+to produce resonable accuracy.  
+
+
+#### Data Processing and Exploratory Data Analysis
+
+The training and testing data are downloaded and processed to form train, validation, and test sets.  Data inputs consisting of blank
+and NA values are removed from the datasets.  Also, for the purposes of the current evaluation, inputs such as name and date are not 
+needed and so are also removed.  
+
+The datasets traindata1 and testdata1 retain 53 inputs for modeling.  To form minimized training and test sets (traindata2 and testdata2), 
+the initial 53 inputs are iteratively modeled and reduced to four by choosing inputs with optimum Gini indices.
+
+```{r,echo=T}
+  # Load sensor data
+  train=read.csv("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv")
+  test=read.csv("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv")
+
+  # Do some data processing
+  traindata<-subset(train,train$kurtosis_roll_belt=="")
+  traindata1<-traindata[,c(7:11,37:49,60:68,84:86,102,113:124,140,151:160)]
+  traindata2<-traindata[,c(7,8,10,123,160)]
+
+  testdata<-subset(test,toString(test$kurtosis_roll_belt)!="NA")
+  colnames(testdata)[colnames(testdata)=="problem_id"]<-"classe"
+  testdata1<-testdata[,c(7:11,37:49,60:68,84:86,102,113:124,140,151:160)]
+  testdata2<-testdata[,c(7,8,10,123,160)]
+  
+  # Make training, validation, and test datasets
+  inTrain1=createDataPartition(traindata1$classe,p=0.75,list=FALSE)
+  trainset1=traindata1[inTrain1,]; validationset1=traindata1[-inTrain1,]; testset1<-testdata1
+  
+  inTrain2=createDataPartition(traindata2$classe,p=0.75,list=FALSE)
+  trainset2=traindata2[inTrain2,]; validationset2=traindata2[-inTrain2,]; testset2<-testdata2
+```
+
+The inputs retained for train and test sets 1 are:
+
+```{r}
+print(colnames(traindata1))
+```
+
+The inputs retained for train and test sets 2 are:
+
+```{r}
+print(colnames(traindata2))
+```
+
+
+#### Training Models and Results
+
+The RandomForest() function is used to fit both training sets and the confusionMatrix() function is used to 
+demonstrate performance with the validation sets.  The results of testing the fit1 model (data sets 1) to the
+validation set are shown below.  The model performs very well with an accuracy over 0.99 with the validation 
+set.
+
+```{r}
+  # learn train set 1
+  set.seed(298374)
+  fit1<-randomForest(classe~.,data=trainset1,importance=FALSE)
+  # predictions validation set 1
+  validationsetpredictions1<-predict(fit1,newdata=validationset1)
+  confusionMatrix(validationsetpredictions1,validationset1$classe)
+```
+
+Results for testing the fit2 model (data sets 2) to the validation set are shown below.  The model also performs 
+very well with an accuracy of greater than 0.99 on the validation set.  It can be seen that performance remains 
+very good even with a significant reduction in the number of inputs, indicating that within the perspective of 
+generality in the model, the model fit1 is likely over fit.
+
+```{r}
+  # learn train set 2
+  set.seed(298374)
+  fit2<-randomForest(classe~.,data=trainset2,importance=FALSE)
+  # predictions validation set 2
+  validationsetpredictions2<-predict(fit2,newdata=validationset2)
+  confusionMatrix(validationsetpredictions2,validationset2$classe)
+```
+
+A graph of error vs. number of trees is shown below for fit2.  The graph shows that the predicted fit is very 
+low, i.e., under 0.01.
+
+```{r}
+  plot(fit2,main="Error Rate for Fit2 Model")
+  legend("top",colnames(fit2$err.rate),col=1:4,cex=0.8,fill=1:4)
+```
+
+
+The predictions for the test set using the fit1 model are:
+
+```{r}
+  # predictions test set 1
+  testsetpredictions1<-predict(fit1,newdata=testset1)
+  testsetpredictions1  
+```
+
+The predictions for the test set using the fit2 model are:
+
+```{r}
+  # predictions test set 2
+  testsetpredictions2<-predict(fit2,newdata=testset2)
+  testsetpredictions2  
+```
+
+
+For reference, several plots cross referencing the inputs used for the fit2 model are shown below.  The 
+plots show clear separations in the inputs selected through optimizing the fit2 model.
+
+```{r}
+  qplot(num_window,pitch_forearm,colour=classe,data=traindata)
+  qplot(roll_belt,yaw_belt,colour=classe,data=traindata)
+  qplot(pitch_forearm,roll_belt,colour=classe,data=traindata)
+```
+
+
+#### Summary
+
+The results for the test set for both fit models are equivalent and are:
+
+1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20   
+B  A  B  A  A  E  D  B  A  A  B  C  B  A  E  E  A  B  B  B
+
+The evaluation shows that the randomForest() function can provide good fit for predicting dumbbell performance 
+given the Human Activity Recognition dataset.  Evaluation to determine optimum inputs for use in the prediction model 
+shows that relatively few inputs are needed for accurate predictions.
+
+
+#### References
+
+Brian Caffo, Jeff Leek, Roger Peng, 2014, Github Repository /courses/08_PracticalMachineLearning, 
+  https://github.com/bcaffo/courses
+
+Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th 
+  International Conference in Cooperation with SIGCHI (Augmented Human '13) . Stuttgart, Germany: ACM SIGCHI, 2013. 
+
+"Tree-Based Models", https://www.statmethods.net/advstats/cart.html, Last accessed 6/10/2019
