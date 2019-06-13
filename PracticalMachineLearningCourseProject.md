@@ -58,9 +58,9 @@ C - Raising only halfway
 D - Lowering only halfway  
 E - Throwing hips to front  
 
-In an attempt to explore over/under fitting, the random forest algorithm is used to fit two models:  One model uses a relatively 
+In an attempt to explore over/under fitting, a random forest algorithm is used to fit two models:  One model uses a relatively 
 full set of input data from the Human Activity Recognition dataset, whereas a second model uses the minimum optimum inputs needed 
-to produce resonable accuracy.  
+to produce reasonable accuracy.  
 
 
 #### Data Processing and Exploratory Data Analysis
@@ -159,34 +159,34 @@ set.
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1367    0    0    0    0
-##          B    0  929    4    0    0
-##          C    0    0  834    6    0
-##          D    0    0    0  779    1
-##          E    0    0    0    1  881
+##          A 1367    1    0    0    0
+##          B    0  925    0    0    0
+##          C    0    3  838    2    0
+##          D    0    0    0  784    1
+##          E    0    0    0    0  881
 ## 
 ## Overall Statistics
-##                                           
-##                Accuracy : 0.9975          
-##                  95% CI : (0.9956, 0.9987)
-##     No Information Rate : 0.2847          
-##     P-Value [Acc > NIR] : < 2.2e-16       
-##                                           
-##                   Kappa : 0.9968          
-##                                           
-##  Mcnemar's Test P-Value : NA              
+##                                          
+##                Accuracy : 0.9985         
+##                  95% CI : (0.997, 0.9994)
+##     No Information Rate : 0.2847         
+##     P-Value [Acc > NIR] : < 2.2e-16      
+##                                          
+##                   Kappa : 0.9982         
+##                                          
+##  Mcnemar's Test P-Value : NA             
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            1.0000   1.0000   0.9952   0.9911   0.9989
-## Specificity            1.0000   0.9990   0.9985   0.9998   0.9997
-## Pos Pred Value         1.0000   0.9957   0.9929   0.9987   0.9989
-## Neg Pred Value         1.0000   1.0000   0.9990   0.9983   0.9997
+## Sensitivity            1.0000   0.9957   1.0000   0.9975   0.9989
+## Specificity            0.9997   1.0000   0.9987   0.9998   1.0000
+## Pos Pred Value         0.9993   1.0000   0.9941   0.9987   1.0000
+## Neg Pred Value         1.0000   0.9990   1.0000   0.9995   0.9997
 ## Prevalence             0.2847   0.1935   0.1745   0.1637   0.1837
-## Detection Rate         0.2847   0.1935   0.1737   0.1622   0.1835
-## Detection Prevalence   0.2847   0.1943   0.1749   0.1624   0.1837
-## Balanced Accuracy      1.0000   0.9995   0.9969   0.9954   0.9993
+## Detection Rate         0.2847   0.1926   0.1745   0.1633   0.1835
+## Detection Prevalence   0.2849   0.1926   0.1756   0.1635   0.1835
+## Balanced Accuracy      0.9999   0.9978   0.9994   0.9986   0.9994
 ```
 
 Results for testing the fit2 model (data sets 2) to the validation set are shown below.  The model also performs 
@@ -209,37 +209,37 @@ generality in the model, the model fit1 is likely over fit.
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1366    0    0    0    0
-##          B    0  929    0    0    0
-##          C    0    0  838    0    0
-##          D    0    0    0  786    1
-##          E    1    0    0    0  881
+##          A 1367    2    0    0    0
+##          B    0  927    0    0    0
+##          C    0    0  838    1    0
+##          D    0    0    0  785    1
+##          E    0    0    0    0  881
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.9996          
-##                  95% CI : (0.9985, 0.9999)
+##                Accuracy : 0.9992          
+##                  95% CI : (0.9979, 0.9998)
 ##     No Information Rate : 0.2847          
 ##     P-Value [Acc > NIR] : < 2.2e-16       
 ##                                           
-##                   Kappa : 0.9995          
+##                   Kappa : 0.9989          
 ##                                           
 ##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.9993   1.0000   1.0000   1.0000   0.9989
-## Specificity            1.0000   1.0000   1.0000   0.9998   0.9997
-## Pos Pred Value         1.0000   1.0000   1.0000   0.9987   0.9989
-## Neg Pred Value         0.9997   1.0000   1.0000   1.0000   0.9997
+## Sensitivity            1.0000   0.9978   1.0000   0.9987   0.9989
+## Specificity            0.9994   1.0000   0.9997   0.9998   1.0000
+## Pos Pred Value         0.9985   1.0000   0.9988   0.9987   1.0000
+## Neg Pred Value         1.0000   0.9995   1.0000   0.9998   0.9997
 ## Prevalence             0.2847   0.1935   0.1745   0.1637   0.1837
-## Detection Rate         0.2845   0.1935   0.1745   0.1637   0.1835
-## Detection Prevalence   0.2845   0.1935   0.1745   0.1639   0.1837
-## Balanced Accuracy      0.9996   1.0000   1.0000   0.9999   0.9993
+## Detection Rate         0.2847   0.1930   0.1745   0.1635   0.1835
+## Detection Prevalence   0.2851   0.1930   0.1747   0.1637   0.1835
+## Balanced Accuracy      0.9997   0.9989   0.9999   0.9992   0.9994
 ```
 
-A graph of error vs. number of trees is shown below for fit2.  The graph shows that the predicted fit is very 
+A graph of error vs. number of trees is shown below for fit2.  The graph shows that the predicted error is very 
 low, i.e., under 0.01.
 
 

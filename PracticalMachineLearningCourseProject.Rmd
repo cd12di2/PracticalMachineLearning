@@ -66,9 +66,9 @@ C - Raising only halfway
 D - Lowering only halfway  
 E - Throwing hips to front  
 
-In an attempt to explore over/under fitting, the random forest algorithm is used to fit two models:  One model uses a relatively 
+In an attempt to explore over/under fitting, a random forest algorithm is used to fit two models:  One model uses a relatively 
 full set of input data from the Human Activity Recognition dataset, whereas a second model uses the minimum optimum inputs needed 
-to produce resonable accuracy.  
+to produce reasonable accuracy.  
 
 
 #### Data Processing and Exploratory Data Analysis
@@ -146,7 +146,7 @@ generality in the model, the model fit1 is likely over fit.
   confusionMatrix(validationsetpredictions2,validationset2$classe)
 ```
 
-A graph of error vs. number of trees is shown below for fit2.  The graph shows that the predicted fit is very 
+A graph of error vs. number of trees is shown below for fit2.  The graph shows that the predicted error is very 
 low, i.e., under 0.01.
 
 ```{r}
